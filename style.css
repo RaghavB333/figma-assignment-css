@@ -1,0 +1,176 @@
+:root {
+    --primary-color: rgb(226, 225, 225);
+    --secondary-color: rgb(184, 182, 182);
+}
+
+body {
+    background-color: #eeeeee;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    background-color: rgb(209, 206, 206);
+    width: 20vw;
+    height: 100vh;
+    border: 2px solid rgb(209, 206, 206);
+}
+
+.logo {
+    padding: 20px 70px;
+    font-size: 45px;
+    font-weight: 300;
+}
+
+.menu {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 50px;
+
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 4px;
+    padding: 20px 20px;
+    border-radius: 50px;
+    font-size: 25px;
+}
+
+.lines {
+    display: flex;
+    margin-top: 7px;
+    margin-right: 8px;
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.long,
+.short {
+    width: 6px;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.long {
+    height: 8px;
+}
+
+.short {
+    height: 4px;
+}
+
+
+.menu li:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    margin: 30px 40px;
+}
+
+.cards-text {
+    font-size: 20px;
+}
+
+.search-bar {
+    margin-left: 550px;
+    width: 300px;
+    background-color: var(--primary-color);
+    border-radius: 50px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 50px;
+    font-size: 16px;
+}
+
+.moon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eh-account {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: 50px;
+    width: 125px;
+
+}
+
+.eh {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(184, 182, 182);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.mc-heading {
+    display: flex;
+    align-items: center;
+}
+
+.mc-heading h1{
+    margin-left: 50px;
+    font-weight: 100;
+}
+
+.orders-bar{
+    margin-left: 25vw;
+    background-color: var(--secondary-color);
+    border-radius: 50px;
+    padding:5px 10px;
+}
+
+.cac{
+     margin-left: 25px;
+    background-color: var(--secondary-color);
+    border-radius: 50px;
+    padding:5px 10px;
+}
+
+.filter{
+    display: flex;
+    margin-left: 25px;
+    background-color: var(--secondary-color);
+    border-radius: 50px;
+    padding:5px 10px;
+}
+
+.filter img{
+    width: 20px;
+    height: 20px;
+}

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Flow Step 2 - ID Proof</title>
+    <style>
+        :root {
+            --primary-color: rgb(226, 225, 225);
+            --secondary-color: rgb(184, 182, 182);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-color);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--primary-color);
+
+            border: none;
+            width: 60vw;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 32px;
+
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .step-indicator {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .progress-bar {
+            width: 15vw;
+            height: 4px;
+            background-color: #e5e5e5;
+            border-radius: 2px;
+            margin-bottom: 24px;
+            margin-left: 20vw;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-address {
+            width: 8vw;
+            height: 4px;
+            background-color: #e5e5e5;
+            border-radius: 2px;
+            margin-left: 15vw;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #ffeb3b;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-sections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            margin-right: 20px;
+        }
+
+        .progress-section {
+            flex: 1;
+        }
+
+        .progress-section:last-child {
+            border-right: none;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .progress-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .progress-label.active {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .main {
+            border: 2px solid white;
+            padding: 20px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+        }
+
+        .address-main{
+            border: 2px solid white;
+            padding: 15px;
+            border-radius: 30px;
+            margin-left: 70px;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #f8f9fa;
+            color: #666;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ffeb3b;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #f8f9fa;
+            color: #666;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #ffeb3b;
+        }
+
+        .upload-section {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-direction: column;
+        }
+
+        .upload-group {
+            flex: 1;
+        }
+
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #ffeb3b;
+            background-color: #fffef0;
+        }
+
+        .upload-icon {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 12px;
+            opacity: 0.6;
+        }
+
+        .upload-text {
+            font-size: 14px;
+
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .upload-subtext {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .continue-btn {
+            width: 50%;
+            margin-left: 25%;
+            padding: 14px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            background-color: #555;
+        }
+
+        .note {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 16px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Address Proof specific styles */
+        .address-upload-section {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+
+
+        }
+
+        .address-upload-group {
+            flex: 1;
+        }
+
+        .address-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .address-upload-area:hover {
+            border-color: #ffeb3b;
+            background-color: #fffef0;
+        }
+
+        .address-upload-icon {
+            width: 24px;
+            height: 24px;
+            margin: 0 auto 8px;
+            opacity: 0.6;
+        }
+
+        .address-upload-text {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .address-upload-subtext {
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ID Proof Form -->
+    <div class="container" id="idProofForm">
+        <div class="header">
+            <div class="progress-labels">
+                <span class="progress-label active">Id Proof</span>
+                <span class="progress-label">Address Proof</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 50%;"></div>
+                <div class="progress-sections">
+                    <div class="progress-section"></div>
+                    <div class="progress-section"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="main">
+            <h2 class="form-title">Upload your Identity Proof</h2>
+            <p class="form-subtitle">Passports and driving licenses are accepted</p>
+            <div style="display: flex; gap: 10vw;">
+                <div style="display: flex; flex-direction: column;">
+                    <div class="form-group">
+                        <label class="form-label">Id Number</label>
+                        <input type="text" class="form-input" style="width: 20vw;" placeholder="Enter Id Number">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Id Type</label>
+                        <select class="form-select">
+                            <option>Select Id Type</option>
+                            <option>Passport</option>
+                            <option>Driver's License</option>
+                            <option>National ID</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Issue Date</label>
+                        <input type="text" class="form-input" placeholder="dd/mm/yyyy">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="text" class="form-input" placeholder="dd/mm/yyyy">
+                    </div>
+                </div>
+                <div class="upload-section">
+                    <div class="upload-group">
+                        <label class="form-label" style="margin-left: 70px;">ID Front</label>
+                        <div class="upload-area">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7,10 12,15 17,10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            <div class="upload-text">Browse Files</div>
+                            <div class="upload-subtext">Only jpeg, jpg, png formats</div>
+                        </div>
+                    </div>
+
+                    <div class="upload-group">
+                        <label class="form-label" style="margin-left: 70px;">ID Back</label>
+                        <div class="upload-area">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7,10 12,15 17,10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            <div class="upload-text">Browse Files</div>
+                            <div class="upload-subtext">Only jpeg, jpg, png formats</div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <button class="continue-btn" onclick="showAddressProof()">Continue</button>
+        </div>
+    </div>
+
+    <!-- Address Proof Form -->
+    <div class="address-container hidden" id="addressProofForm">
+        <div class="header">
+            <div class="progress-labels">
+                <span class="progress-label active">Id Proof</span>
+                <span class="progress-label active">Address Proof</span>
+            </div>
+            <div class="progress-bar-address ">
+                <div class="progress-fill" style="width: 100%;"></div>
+                <div class="progress-sections">
+                    <div class="progress-section"></div>
+                    <div class="progress-section"></div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="address-main">
+            <h2 class="form-title">Upload your Address Proof</h2>
+            <p class="form-subtitle">Passports and driving licenses are accepted</p>
+
+            <div class="form-group">
+                <label class="form-label">Address Type</label>
+                <select class="form-select">
+                    <option>Select Address Type</option>
+                    <option>Utility Bill</option>
+                    <option>Bank Statement</option>
+                    <option>Rental Agreement</option>
+                    <option>Government Letter</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Issue Date</label>
+                <input type="text" class="form-input" placeholder="dd/mm/yyyy">
+            </div>
+
+            <div class="address-upload-section">
+                <div class="address-upload-group">
+                    <label class="form-label">Proof of address</label>
+                    <div class="address-upload-area">
+                        <svg class="address-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7,10 12,15 17,10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        <div class="address-upload-text">Browse Files</div>
+                        <div class="address-upload-subtext">Only jpeg, jpg, png formats</div>
+                    </div>
+                </div>
+
+                <div class="address-upload-group">
+                    <label class="form-label">ID Front</label>
+                    <div class="address-upload-area">
+                        <svg class="address-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7,10 12,15 17,10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        <div class="address-upload-text">Browse Files</div>
+                        <div class="address-upload-subtext">Only jpeg, jpg, png formats</div>
+                    </div>
+                </div>
+            </div>
+            <div class="note" style="margin-bottom: 10px;">Please note that the documents should not be older than 75
+                days.</div>
+
+            <button class="continue-btn" onclick="completeKYC()">Continue</button>
+        </div>
+
+    </div>
+
+    <script>
+        function showAddressProof() {
+            document.getElementById('idProofForm').classList.add('hidden');
+            document.getElementById('addressProofForm').classList.remove('hidden');
+
+            // Set full progress fill on address proof step
+            document.querySelector('#addressProofForm .progress-fill').style.width = '100%';
+        }
+
+
+        function completeKYC() {
+            alert('KYC Flow Step 2 completed successfully!');
+        }
+
+        // Add click handlers for upload areas
+        document.querySelectorAll('.upload-area, .address-upload-area').forEach(area => {
+            area.addEventListener('click', function () {
+                // In a real implementation, this would trigger file selection
+                console.log('File upload triggered for:', this.previousElementSibling.textContent);
+            });
+        });
+    </script>
+</body>
+
+</html>
