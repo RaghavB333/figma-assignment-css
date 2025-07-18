@@ -890,10 +890,45 @@
         }
 
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .content-header h1 {
                 font-size: 22px;
                 margin-left: 37%;
+            }
+
+            .header {
+                flex-direction: row;
+                align-items: center;
+                padding: 10px;
+                /* Reduced padding */
+                gap: 5px;
+                /* Reduced gap */
+                box-shadow: none;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                /* Prevent wrapping to keep elements on one line */
+            }
+
+            .hamburger-menu {
+                display: block;
+                /* Show hamburger menu on mobile */
+                order: -1;
+                /* Place it at the beginning */
+            }
+
+            .close-sidebar-btn {
+                display: block;
+                /* Show close button when sidebar is open */
+            }
+
+            .cards-text {
+                font-size: 16px;
+                /* Reduced font size */
+                width: auto;
+                text-align: left;
+                margin-right: 0;
+                /* Remove auto margin to allow elements to pack tightly */
+                flex-shrink: 0;
             }
 
             .search-bar {
@@ -909,9 +944,12 @@
                 min-width: 80px;
                 /* Allow smaller min-width */
             }
-            .eh-account{
-                padding: 10px;
+
+            .search-bar input {
+                font-size: 12px;
+                /* Reduced font size */
             }
+
             .moon,
             .eh-account {
                 align-self: center;
@@ -960,33 +998,26 @@
             }
 
             .search-bar {
-                width: auto;
-                max-width: 120px;
-
-                margin: 0;
-                padding: 6px 10px;
-                /* Reduced padding */
-                font-size: 12px;
-                /* Reduced font size */
-                box-shadow: none;
-                min-width: 80px;
-                /* Allow smaller min-width */
+                padding: 4px 8px;
+                /* Further reduced padding */
+                font-size: 11px;
+                /* Further reduced font size */
+                max-width: 90px;
+                /* Even smaller max-width */
+                min-width: 60px;
+                /* Even smaller min-width */
             }
 
             .search-bar input {
                 font-size: 11px;
                 /* Further reduced font size */
             }
-            .eh-account{
-                padding: 5px 14px;
-            }
 
             .moon,
             .eh-account {
-                transform: scale(0.8);
+                transform: scale(0.7);
                 /* Further reduced scale */
             }
-            
 
             .content-header h1 {
                 font-size: 20px;
