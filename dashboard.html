@@ -13,6 +13,10 @@
             --yellow-card: #FFE135;
             --blue-accent: #0EA5E9;
             --green-active: #10B981;
+            --text-dark: #333; /* Kept for consistency with other elements */
+            --text-light: #666; /* Kept for consistency with other elements */
+            --border-light: #f0f0f0; /* Kept for consistency with other elements */
+            --shadow-light: rgba(0, 0, 0, 0.05); /* Kept for consistency with other elements */
         }
 
         * {
@@ -22,21 +26,21 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Kept Inter font as previously approved */
             background-color: #f5f5f5;
             color: #333;
+            overflow-x: hidden;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-           
         }
-
 
         .container {
             display: flex;
             height: 100vh;
+            /* Reverted: Removed border-radius, overflow, box-shadow */
         }
 
         /* Sidebar */
@@ -46,18 +50,25 @@
             height: 100vh;
             padding: 20px;
             border-right: 1px solid #ddd;
+            flex-shrink: 0; /* Original */
+            transition: width 0.3s ease; /* Original */
+            display: flex; /* Original */
+            flex-direction: column; /* Original */
         }
 
         .logo {
             padding: 20px 0;
-            font-size: 36px;
-            font-weight: 300;
+            font-size: 36px; /* Reverted from 32px */
+            font-weight: 300; /* Reverted from 600 */
             text-align: center;
             margin-bottom: 30px;
+            color: #333; /* Reverted from var(--text-dark) but same value */
+            letter-spacing: normal; /* Reverted from -0.5px */
         }
 
         .menu {
             list-style-type: none;
+            flex-grow: 1; /* Original */
         }
 
         .menu li {
@@ -66,43 +77,66 @@
             margin-bottom: 8px;
             gap: 12px;
             padding: 15px 20px;
-            border-radius: 50px;
+            border-radius: 50px; /* Reverted from 12px */
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s; /* Reverted: Removed transform */
+            color: inherit; /* Reverted from var(--text-light) */
         }
 
         .menu li:hover {
             background-color: white;
+            color: inherit; /* Reverted from var(--text-dark) */
+            /* Reverted: Removed transform: translateX(5px); */
         }
 
         .menu li.active {
             background-color: white;
+            color: inherit; /* Reverted from var(--text-dark) */
+            font-weight: normal; /* Reverted from 500 */
+            box-shadow: none; /* Reverted: Removed box-shadow */
         }
 
+        /* Icon styling for menu items */
+        .menu li svg {
+            width: 20px;
+            height: 20px;
+            color: #666; /* Reverted from #333 for active/hover */
+            transition: color 0.3s;
+        }
+
+        .menu li.active svg,
+        .menu li:hover svg {
+            color: #666; /* Reverted from #333 */
+        }
+
+        /* Custom icons (lines/stack) */
         .lines {
             display: flex;
+            gap: 4px; /* Original */
+            align-items: center; /* Original */
         }
 
         .stack {
             display: flex;
             flex-direction: column;
-
+            gap: 2px; /* Original */
         }
 
         .long,
         .short {
-            width: 6px;
-            border: 2px solid black;
-            border-radius: 2px;
+            width: 6px; /* Original */
+            border: 2px solid black; /* Reverted from 1.5px solid #333 */
+            border-radius: 2px; /* Original */
+            background-color: black; /* Reverted from #333 */
         }
 
         .long {
-            height: 10px;
+            height: 10px; /* Original */
         }
 
         .short {
-            height: 5px;
+            height: 5px; /* Original */
         }
 
         /* Main Content */
@@ -111,32 +145,39 @@
             display: flex;
             flex-direction: column;
             background-color: white;
+            overflow: hidden; /* Original */
         }
 
         /* Header */
         .header {
             display: flex;
             align-items: center;
-            padding: 20px 40px;
+            padding: 20px 40px; /* Reverted from 15px 40px */
             background-color: white;
             gap: 20px;
+            flex-wrap: wrap; /* Original */
+            border-bottom: none; /* Reverted: Removed border-bottom */
+            box-shadow: none; /* Reverted: Removed box-shadow */
         }
 
         .cards-text {
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 20px; /* Reverted from 22px */
+            font-weight: 500; /* Reverted from 600 */
+            color: #333; /* Reverted from var(--text-dark) but same value */
         }
 
         .search-bar {
             flex: 1;
-            max-width: 300px;
+            max-width: 300px; /* Reverted from 350px */
             margin-left: auto;
             margin-right: 20px;
             background-color: var(--primary-color);
             border-radius: 50px;
-            padding: 8px 16px;
+            padding: 8px 16px; /* Reverted from 10px 20px */
             display: flex;
             align-items: center;
+            min-width: 180px; /* Original */
+            box-shadow: none; /* Reverted: Removed inset box-shadow */
         }
 
         .search-bar input {
@@ -144,11 +185,12 @@
             outline: none;
             width: 100%;
             background-color: transparent;
-            font-size: 14px;
+            font-size: 14px; /* Reverted from 15px */
+            color: #333; /* Reverted from var(--text-dark) but same value */
         }
 
         .search-bar input::placeholder {
-            color: #666;
+            color: #666; /* Reverted from var(--text-light) but same value */
         }
 
         .moon {
@@ -159,8 +201,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
+            font-size: 18px; /* Reverted from 20px */
             cursor: pointer;
+            flex-shrink: 0; /* Original */
+            box-shadow: none; /* Reverted: Removed box-shadow */
+            transition: background-color 0.3s; /* Reverted: Removed transform */
+        }
+
+        .moon:hover {
+            background-color: var(--secondary-color);
+            transform: none; /* Reverted: Removed translateY(-2px) */
         }
 
         .eh-account {
@@ -169,36 +219,46 @@
             align-items: center;
             background-color: var(--primary-color);
             border-radius: 50px;
-            padding: 5px 15px 5px 5px;
+            padding: 5px 15px 5px 5px; /* Reverted from 8px 18px 8px 8px */
             cursor: pointer;
+            flex-shrink: 0; /* Original */
+            box-shadow: none; /* Reverted: Removed box-shadow */
+            transition: background-color 0.3s; /* Reverted: Removed transform */
+        }
+
+        .eh-account:hover {
+            background-color: var(--secondary-color);
+            transform: none; /* Reverted: Removed translateY(-2px) */
         }
 
         .eh {
-            width: 40px;
-            height: 40px;
-            background-color: var(--secondary-color);
+            width: 40px; /* Reverted from 36px */
+            height: 40px; /* Reverted from 36px */
+            background-color: var(--secondary-color); /* Reverted from var(--blue-accent) */
+            color: #333; /* Reverted from white */
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 14px; /* Reverted from 15px */
+            font-weight: 500; /* Reverted from 600 */
         }
-
 
         /* Dashboard Content */
         .dashboard-content {
             flex: 1;
             padding: 40px;
             overflow-y: auto;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Original */
+            /* Reverted: Removed flex-direction: column; gap: 40px; */
         }
 
         .cards-section {
             display: flex;
             gap: 20px;
             margin-bottom: 40px;
-            width: 55vw;
+            width: 55vw; /* Reverted to original fixed width */
+            /* Reverted: Removed flex-wrap; */
         }
 
         .card {
@@ -210,23 +270,25 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            /* Reverted: Removed flex: 1; min-width; */
+            box-shadow: none; /* Reverted: Removed box-shadow */
         }
 
         .card-yellow {
             background: linear-gradient(135deg, #FFE135, #FFF59D);
-            flex: 1;
+            flex: 1; /* Original */
         }
 
         .card-dark {
             background: linear-gradient(135deg, #4a4a4a, #666);
             color: white;
-            flex: 1;
+            flex: 1; /* Original */
         }
 
         .card-white {
             background: white;
             border: 2px solid #e0e0e0;
-            flex: 0.8;
+            flex: 0.8; /* Reverted to original flex value */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -285,25 +347,28 @@
         .add-card-text {
             font-size: 14px;
             color: #666;
+            text-align: center; /* Original */
         }
 
         /* Balance Section */
         .balance-section {
-            position: relative;
-            bottom: 31vh;
-            left: 55vw;
-
+            position: relative; /* Reverted to original positioning */
+            bottom: 31vh; /* Reverted to original positioning */
+            left: 55vw; /* Reverted to original positioning */
             display: flex;
             gap: 40px;
             margin-bottom: 40px;
+            /* Reverted: Removed flex-wrap; min-width; */
+            box-shadow: none; /* Reverted: Removed box-shadow */
         }
 
         .balance-card {
             background: white;
             border-radius: 12px;
             padding: 30px;
-            flex: 1;
-
+            flex: 1; /* Original */
+            /* Reverted: Removed min-width; */
+            box-shadow: none; /* Reverted: Removed box-shadow */
         }
 
         .balance-header {
@@ -326,10 +391,17 @@
         }
 
         .dropdown-arrow {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            margin-left: 10px;
+            position: relative; /* Reverted to original positioning */
+            right: 55vw; /* Reverted to original positioning */
+            display: flex;
+            background-color: var(--secondary-color);
+            padding: 3px 5px;
+            border-radius: 50px;
+            align-items: center; /* Original */
+            gap: 5px; /* Original */
+            font-size: 12px; /* Original */
+            color: #666; /* Original */
+            cursor: pointer; /* Original */
         }
 
         .account-info {
@@ -337,8 +409,9 @@
             margin-top: 20px;
             padding: 20px;
             border-top: 1px solid #f0f0f0;
-            width: 300px;
+            width: 300px; /* Reverted to original fixed width */
             border-radius: 30px;
+            /* Reverted: Removed flex: 1; min-width; */
         }
 
         .company-name {
@@ -358,6 +431,7 @@
             display: flex;
             gap: 15px;
             margin-bottom: 10px;
+            flex-wrap: wrap; /* Original */
         }
 
         .card-type-item {
@@ -388,24 +462,17 @@
             font-weight: 500;
         }
 
-        .doller-dd {
-            position: relative;
-            right: 55vw;
-            display: flex;
-            background-color: var(--secondary-color);
-            padding: 3px 5px;
-            border-radius: 50px;
-        }
-
         /* Transaction Section */
         .transaction-section {
-            position: relative;
-            width: 55vw;
-            bottom: 55vh;
+            position: relative; /* Reverted to original positioning */
+            width: 55vw; /* Reverted to original fixed width */
+            bottom: 55vh; /* Reverted to original positioning */
             background: white;
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Original */
+            overflow-x: hidden; /* Reverted from auto */
+            -webkit-overflow-scrolling: auto; /* Reverted from touch */
         }
 
         .transaction-header {
@@ -413,6 +480,7 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 30px;
+            flex-wrap: wrap; /* Original */
         }
 
         .transaction-balance {
@@ -431,6 +499,7 @@
             display: flex;
             gap: 15px;
             margin-bottom: 30px;
+            flex-wrap: wrap; /* Original */
         }
 
         .btn {
@@ -441,6 +510,7 @@
             cursor: pointer;
             font-size: 14px;
             transition: background-color 0.3s;
+            flex-shrink: 0; /* Original */
         }
 
         .btn:hover {
@@ -461,6 +531,7 @@
         .transaction-table {
             width: 100%;
             border-collapse: collapse;
+            /* Reverted: Removed min-width */
         }
 
         .transaction-table th {
@@ -494,6 +565,7 @@
             font-weight: 500;
             font-size: 14px;
             margin-right: 15px;
+            flex-shrink: 0; /* Original */
         }
 
         .transaction-row {
@@ -513,36 +585,345 @@
             color: #333;
         }
 
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .cards-section {
-                flex-direction: column;
-            }
+        /* Responsive Design Media Queries */
 
-            .balance-section {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 768px) {
+        /* Tablets and smaller laptops (e.g., 769px to 1024px) */
+        @media (max-width: 1024px) {
             .sidebar {
-                width: 60px;
+                width: 80px;
+                padding: 15px 0;
+            }
+
+            .logo {
+                font-size: 24px;
+                padding: 15px 0;
+                margin-bottom: 20px;
+            }
+
+            .menu li {
+                padding: 12px 10px;
+                gap: 8px;
+                justify-content: center;
             }
 
             .menu li span {
                 display: none;
             }
 
-            .dashboard-content {
-                padding: 20px;
+            .long,
+            .short {
+                width: 5px;
+                border-width: 1.2px;
+            }
+
+            .long {
+                height: 8px;
+            }
+
+            .short {
+                height: 4px;
             }
 
             .header {
                 padding: 15px 20px;
+                gap: 15px;
             }
 
-            .search-input {
-                width: 200px;
+            .cards-text {
+                font-size: 18px;
+            }
+
+            .search-bar {
+                max-width: 250px;
+                margin-right: 15px;
+                padding: 8px 15px;
+            }
+
+            .search-bar input {
+                font-size: 13px;
+            }
+
+            .moon,
+            .eh-account {
+                transform: scale(0.9);
+            }
+
+            .dashboard-content {
+                padding: 20px;
+                /* Added flex-direction and gap for responsiveness */
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .cards-section {
+                flex-direction: column; /* Stack cards vertically */
+                width: 100%; /* Make it take full width */
+                margin-bottom: 20px; /* Adjust margin */
+            }
+
+            .card {
+                min-width: unset; /* Allow cards to shrink */
+            }
+
+            .balance-section {
+                flex-direction: column; /* Stack balance cards vertically */
+                position: static; /* Remove absolute positioning */
+                bottom: auto;
+                left: auto;
+                width: 100%; /* Take full width */
+                gap: 20px;
+            }
+
+            .balance-card, .account-info {
+                min-width: unset; /* Allow full flexibility */
+            }
+
+            .dropdown-arrow {
+                position: static; /* Remove absolute positioning */
+                right: auto;
+            }
+
+            .transaction-section {
+                position: static; /* Remove absolute positioning */
+                width: 100%; /* Take full width */
+                bottom: auto;
+                overflow-x: auto; /* Re-enable horizontal scroll for table */
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .transaction-table {
+                min-width: 600px; /* Ensure table has a minimum width for scrolling */
+            }
+        }
+
+        /* Mobile Devices (e.g., 481px to 768px) */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+                flex-direction: row; /* Align menu items horizontally */
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 20px;
+                padding: 10px 0;
+                margin-bottom: 0;
+                margin-right: 15px;
+            }
+
+            .menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+                flex-grow: 0;
+            }
+
+            .menu li {
+                padding: 8px 12px;
+                font-size: 13px;
+                margin-bottom: 5px;
+                flex-shrink: 0;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 20px;
+                gap: 10px;
+                box-shadow: none;
+            }
+
+            .cards-text {
+                font-size: 16px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .search-bar {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 8px 15px;
+                font-size: 13px;
+                box-shadow: none;
+            }
+
+            .search-bar input {
+                font-size: 13px;
+            }
+
+            .moon,
+            .eh-account {
+                align-self: center;
+                margin-top: 10px;
+                transform: none;
+                box-shadow: none;
+            }
+
+            .dashboard-content {
+                padding: 15px;
+            }
+
+            .card {
+                min-width: unset;
+            }
+
+            .balance-card {
+                min-width: unset;
+            }
+
+            .account-info {
+                min-width: unset;
+            }
+
+            .transaction-section {
+                padding: 20px;
+            }
+
+            .transaction-table {
+                min-width: 450px;
+            }
+
+            .transaction-table th,
+            .transaction-table td {
+                font-size: 12px;
+                padding: 10px 0;
+            }
+
+            .transaction-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 12px;
+                margin-right: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Smallest Mobile Devices (e.g., up to 400px) */
+        @media (max-width: 400px) {
+            .logo {
+                font-size: 18px;
+                margin-right: 10px;
+            }
+
+            .sidebar {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .menu {
+                justify-content: space-around;
+                width: 100%;
+            }
+
+            .menu li {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+
+            .header {
+                padding: 10px;
+            }
+
+            .cards-text {
+                font-size: 14px;
+            }
+
+            .search-bar {
+                padding: 6px 10px;
+            }
+
+            .search-bar input {
+                font-size: 11px;
+            }
+
+            .moon,
+            .eh-account {
+                transform: scale(0.8);
+            }
+
+            .dashboard-content {
+                padding: 10px;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 15px;
+                min-height: 140px;
+            }
+
+            .card-number {
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+
+            .balance-card {
+                padding: 20px;
+            }
+
+            .balance-amount {
+                font-size: 28px;
+            }
+
+            .account-info {
+                padding: 15px;
+            }
+
+            .company-name {
+                font-size: 14px;
+            }
+
+            .account-balance {
+                font-size: 16px;
+            }
+
+            .card-type-item {
+                font-size: 10px;
+                padding: 4px 8px;
+            }
+
+            .transaction-section {
+                padding: 15px;
+            }
+
+            .transaction-table {
+                min-width: 350px;
+            }
+
+            .transaction-table th,
+            .transaction-table td {
+                font-size: 11px;
+                padding: 8px 0;
+            }
+
+            .transaction-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 10px;
+                margin-right: 8px;
+            }
+
+            .btn {
+                padding: 8px 12px;
+                font-size: 12px;
             }
         }
     </style>
@@ -593,19 +974,7 @@
                     </div>
                     <a href="/kyc.html">KYC</a>
                 </li>
-                <li>
-                    <div class="lines">
-                        <div class="stack">
-                            <div class="long"></div>
-                            <div class="short"></div>
-                        </div>
-                        <div class="stack">
-                            <div class="short"></div>
-                            <div class="long"></div>
-                        </div>
-                    </div>
-                    <span>Transactions</span>
-                </li>
+                
             </ul>
         </section>
 
@@ -661,8 +1030,6 @@
 
                 <!-- Balance Section -->
                 <div class="balance-section">
-
-
                     <div class="balance-card">
                         <div class="balance-header">
                             <div>
@@ -670,7 +1037,7 @@
                                 <div class="balance-amount">$54,200.02</div>
                                 <div class="balance-label">Total balance across accounts</div>
                             </div>
-                            <div class="doller-dd">
+                            <div class="dropdown-arrow">
                                 <span style="font-size: 18px;">$</span>
                                 <div class="dropdown-arrow">▼</div>
                             </div>
